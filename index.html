@@ -1,31 +1,167 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Ember Starter Kit</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <script type="text/x-handlebars">
-    <h2>Welcome to Ember.js</h2>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interviews</title>
+    <link rel="shortcut icon" href="img/wolox.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <script type="text/x-handlebars" data-template-name="application">
+      <nav class="navbar navbar-default">
+        {{#link-to 'interviewees' class='navbar-brand'}}Winterviews{{/link-to}}
+        <ul class="nav navbar-nav">
+          <li>{{#link-to 'interviewees'}}Interviewees{{/link-to}}</li>
+          <li>{{#link-to 'exercises'}}Exercises{{/link-to}}</li>
+        </ul>
+      </nav>
 
-    {{outlet}}
-  </script>
+      {{outlet}}
+    </script>
 
-  <script type="text/x-handlebars" id="index">
-    <ul>
-    {{#each item in model}}
-      <li>{{item}}</li>
-    {{/each}}
-    </ul>
-  </script>
+    <script type="text/x-handlebars" data-template-name="interviewees">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="col-md-3">
+            <div class="list-group">
+              <div class="list-group-item">
+                <div class="col-md-5">
+                  {{input type="text" class="form-control" placeholder="First Name" value=firstName}}
+                </div>
+                <div class="col-md-5">
+                  {{input type="text" class="form-control" placeholder="Last Name" value=lastName}}
+                </div>
+                <button class="btn btn-success btn-sm" {{action "createInterviewee"}}
+                  {{bind-attr disabled=disabled}}>Add</button>
+              </div>
+              {{#each model}}
+                {{#link-to 'interviewees.interviews' this class="list-group-item"}}
+                  {{firstName}} {{lastName}}
+                  <span class="pull-right pointer glyphicon glyphicon-chevron-right"></span>
+                {{/link-to}}
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-md-9">
+            {{outlet}}
+          </div>
+        </div>
+      </div>
+    </script>
 
-  <script src="js/libs/jquery-1.10.2.js"></script>
-  <script src="js/libs/handlebars-v2.0.0.js"></script>
-  <script src="js/libs/ember-1.9.0.js"></script>
-  <script src="js/app.js"></script>
-  <!-- to activate the test runner, add the "?test" query string parameter -->
-  <script src="tests/runner.js"></script>
-</body>
+    <script type="text/x-handlebars" data-template-name="interviewees/index">
+      <div class="col-md-3">
+        <div class="list-group">
+          <div class="list-group-item">
+            Select an interviewee.
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="interviewees/interviews">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="col-md-3">
+            <div class="list-group">
+              <div class="list-group-item">
+                <button class="btn btn-primary btn-sm" {{action "createInterview"}}>
+                  Add
+                </button>
+              </div>
+              {{#each interviews}}
+                {{#link-to 'interviewees.interviews.information' this class="list-group-item"}}
+                  {{format-date createdAt}}
+                  <span class="pull-right pointer glyphicon glyphicon-chevron-right"></span>
+                {{/link-to}}
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-md-9">
+            {{outlet}}
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="interviewees/interviews/information">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="panel-title">Interviewers</div>
+            </div>
+            <div class="panel-body">
+              <ul class="list-unstyled">
+                {{#each interviewers}}
+                  <li>{{firstName}} {{lastName}}</li>
+                {{/each}}
+              </ul>
+              <button class="btn btn-primary btn-sm" {{action "createInterviewee"}}
+                 {{bind-attr disabled=disabled}}>Add Exercise
+               </button>
+            </div>
+          </div>
+          {{#each interviewExercises}}
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="panel-title">{{exercise.title}} <span class="badge">{{mark}}</span></div>
+              </div>
+              <div class="panel-body">
+                <p>{{exercise.description}}</p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="exercises">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="list-group">
+            {{#each model}}
+              <div class="panel panel-success pull-left">
+                <div class="panel-heading">
+                  <div class="panel-title">{{title}}</div>
+                </div>
+                <div class="panel-body">
+                  <p>{{description}}</p>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <!-- Libs -->
+    <script src="js/libs/jquery-1.11.1.min.js"></script>
+    <script src="js/libs/handlebars.js"></script>
+    <script src="js/libs/ember.prod.js"></script>
+    <script src="js/libs/ember-data.prod.js"></script>
+    <script src="js/libs/ember-parse-adapter.js"></script>
+    <script src="js/libs/moment.min.js"></script>
+
+    <!-- Configuration Files -->
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/store.js"></script>
+    <!-- to activate the test runner, add the "?test" query string parameter -->
+    <script src="tests/runner.js"></script>
+
+    <!-- Models -->
+    <script src="js/models/interviewee.js"></script>
+    <script src="js/models/interview.js"></script>
+    <script src="js/models/exercise.js"></script>
+    <script src="js/models/interviewer.js"></script>
+    <script src="js/models/interview_exercise.js"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/interviewees_controller.js"></script>
+    <script src="js/controllers/interviewees_interviews_controller.js"></script>
+  </body>
 </html>
