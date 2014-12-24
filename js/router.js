@@ -3,9 +3,8 @@
 App.Router.map(function() {
   this.resource('exercises', function() {});
   this.resource('interviewees', function() {
-    this.route('interviews', { path: ':interviewee_id' }, function(){
-      this.route('information', { path: '/interviews/:interview_id' }, function(){});
+    this.resource('interviewees.interviews', { path: ':interviewee_id/interviews/' }, function(){
+      this.resource('interviewees.interviews.information', { path: ':interview_id/information' }, function(){});
     });
   });
-
 });

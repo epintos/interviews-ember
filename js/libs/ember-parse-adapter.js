@@ -79,7 +79,6 @@ EmberParseAdapter.Serializer = DS.RESTSerializer.extend({
       if(hash[key] && relationship.kind === 'belongsTo'){
         hash[key] = hash[key].objectId;
       }
-
       // Handle the hasMany relationships
       if(hash[key] && relationship.kind === 'hasMany'){
 
@@ -151,11 +150,11 @@ EmberParseAdapter.Serializer = DS.RESTSerializer.extend({
         belongsTo = belongsTo.get('content');
       }
 
-      // json[key] = {
-      //   "__type": "Pointer",
-      //   "className": this.parseClassName(belongsTo.constructor.typeKey),
-      //   "objectId": belongsTo.get('id')
-      // };
+      json[key] = {
+        "__type": "Pointer",
+        "className": this.parseClassName(belongsTo.constructor.typeKey),
+        "objectId": belongsTo.get('id')
+      };
     }
   },
 

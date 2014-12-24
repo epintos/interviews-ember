@@ -2,4 +2,5 @@
 .ember-application {
     margin: 20px;
     background-image: url('../img/wolox-background.jpg');
+    text-align: justify;
 }
