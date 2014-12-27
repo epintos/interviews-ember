@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <div class="panel-title">New Exercise</div>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline">
+          <div class="form-group">
+            {{input type="text" class="form-control" placeholder="Title" value=title}}
+          </div>
+          <div class="form-group">
+            {{textarea rows="5" cols="40" class="form-control" placeholder="Description" value=description}}
+          </div>
+          {{view 'select'
+                 content=allTypes
+                 optionValuePath="content.name"
+                 optionLabelPath="content.name"
+                 prompt="Select a type"
+                 class="form-control"
+                 selection=exerciseType}}
+          <button class="btn btn-primary btn-sm" {{action "createExercise"}}
+            {{bind-attr disabled=disabled}}>Create</button>
+        </form>
+      </div>
+    </div>
+    <div class="list-group">
+      {{#each model}}
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <div class="panel-title">{{title}} [{{type}}]</div>
+            </div>
+            <div class="panel-body">
+              <p>{{description}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

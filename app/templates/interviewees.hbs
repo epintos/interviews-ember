@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-md-3">
+      <div class="list-group">
+        <div class="list-group-item">
+          <div class="col-md-5">
+            {{input type="text" class="form-control input-sm" placeholder="First Name" value=firstName}}
+          </div>
+          <div class="col-md-5">
+            {{input type="text" class="form-control input-sm" placeholder="Last Name" value=lastName}}
+          </div>
+          <button class="btn btn-success btn-sm" {{action "createInterviewee"}}
+            {{bind-attr disabled=disabled}}>Add</button>
+        </div>
+        {{#each model}}
+          {{#link-to 'interviewees.interviews' this class="list-group-item"}}
+            {{firstName}} {{lastName}}
+            <span class="pull-right pointer glyphicon glyphicon-chevron-right"></span>
+          {{/link-to}}
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-md-9">
+      {{outlet}}
+    </div>
+  </div>
+</div>

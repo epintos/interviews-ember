@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-md-3">
+      <div class="list-group">
+        <div class="list-group-item">
+          <button class="btn btn-primary btn-sm" {{action "createInterview"}}>
+            New
+          </button>
+        </div>
+        {{#each interviews}}
+          {{#link-to 'interviewees.interviews.information' this class="list-group-item"}}
+            {{format-date createdAt}}
+            <span class="badge">{{totalMark}}</span>
+          {{/link-to}}
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-md-9">
+      {{outlet}}
+    </div>
+  </div>
+</div>

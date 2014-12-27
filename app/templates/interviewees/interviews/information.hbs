@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">Interviewers</div>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            {{#each interviewers}}
+              <li>{{fullName}}</li>
+            {{/each}}
+          </ul>
+          <form class="form-inline">
+            {{view 'select'
+                   content=allInterviewers
+                   optionValuePath="content.id"
+                   optionLabelPath="content.lastName"
+                   prompt="Select an interviewer"
+                   class="form-control input-sm"
+                   selection=newInterviewer}}
+            <button class="btn btn-primary btn-sm" {{action "addInterviewer"}}
+               {{bind-attr disabled=disabled}}>Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">New Interview Exercise</div>
+        </div>
+        <div class="panel-body">
+          <form class="form-inline">
+            {{view 'select'
+                   content=allExercises
+                   optionValuePath="content.objectId"
+                   optionLabelPath="content.title"
+                   prompt="Select an exercise"
+                   class="form-control input-sm"
+                   selection=exercise}}
+            {{input type="text" class="form-control input-sm" placeholder="Mark" value=mark}}
+            <button class="btn btn-primary btn-sm" {{action "addInterviewExercise"}}
+              {{bind-attr disabled=disabled}}>Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {{#each interviewExercises}}
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <div class="panel-title">{{exercise.title}} [{{exercise.type}}] <span class="badge">{{mark}}</span></div>
+        </div>
+        <div class="panel-body">
+          <p>{{exercise.description}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

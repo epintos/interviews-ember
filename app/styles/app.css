@@ -1,0 +1,5 @@
+html, body {
+  margin: 20px;
+    background-image: url('/assets/images/wolox-background.jpg');
+    text-align: justify;
+}
