@@ -75,13 +75,23 @@
               {{#each interviews}}
                 {{#link-to 'interviewees.interviews.information' this class="list-group-item"}}
                   {{format-date createdAt}}
-                  <span class="pull-right pointer glyphicon glyphicon-chevron-right"></span>
+                  <span class="badge">{{totalMark}}</span>
                 {{/link-to}}
               {{/each}}
             </div>
           </div>
           <div class="col-md-9">
             {{outlet}}
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="interviewees/interviews/index">
+      <div class="col-md-4">
+        <div class="list-group">
+          <div class="list-group-item">
+            Select an interview.
           </div>
         </div>
       </div>
