@@ -229,10 +229,17 @@ EmberParseAdapter.Adapter = DS.RESTAdapter.extend({
 
   init: function(){
     this._super();
-    this.set('headers', {
-      "X-Parse-Application-Id": this.get('applicationId'),
-      "X-Parse-REST-API-Key": this.get('restApiId')
-    });
+      headers = {
+        "X-Parse-Application-Id": this.get('applicationId'),
+        "X-Parse-REST-API-Key": this.get('restApiId')
+      };
+      if(typeof(sessionStorage) !== undefined){
+        var sessionToken = sessionStorage.getItem("sessionToken");
+        if(typeof(sessionToken) !== undefined){
+          headers["X-Parse-Session-Token"] = sessionToken;
+        }
+      }
+      this.set('headers', headers);
   },
 
   host: "https://api.parse.com",
